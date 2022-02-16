@@ -83,6 +83,9 @@
     <Content Include="epics\templates\epic.html" />
     <Content Include="epics\templates\epics.html" />
     <Content Include="home\templates\index.html" />
+    <Content Include="README.md">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="requirements.txt" />
     <Content Include="search\templates\results.html" />
     <Content Include="templates\base.html" />
