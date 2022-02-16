@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="row list-group">
+
+    <!-- List of bugs -->
+    {% for bug, epics in bugs.items %}
+    <h3 class="text-capitalize">{{ bug }}</h3>
+
+    <div class="row list-group">
+
+        <!-- List of epics -->
+        {% for epic in epics %}
+        <a href="{% url 'epics:epic' epic.pk %}" class="list-group-item list-group-item-action flex-column align-items-start" id="{{ epic.pk }}">
+            <div class="row d-flex w-100 justify-content-between">
+                <div class="rolly">
+                    <h4 class="text-capitalize">{{ epic.title }}</h4>
+                    {% if 'completed' in epic.state %}
+                    <span class="badge badge-pill badge-success ml-auto align-self-start">{{ epic.state }}</span>
+                    {% elif 'pending' in epic.state %}
+                    <span class="badge badge-pill badge-warning ml-auto align-self-start">{{ epic.state }}</span>
+                    {% elif 'in_progress' in epic.state %}
+                    <span class="badge badge-pill badge-danger">{{ epic.state }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+    </div>
+
+    <hr />
+
+    {% empty %}
+    <div class="row d-flex w-100 justify-content-between">
+        <div class="rolly">
+            <h3 class="text-capitalize">No Results</h3>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 align="center">WELCOME TO FREE JIRA</h1>
+
+<hr />
+
+<div class="row list-group">
+            <div class="row d-flex w-100 justify-content-between">
+
+                <!-- Import backlog button -->
+                <div class="rolly">                
+                    <form action = {% url "serialize:import" %} method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="file" name="backlog">
+                        <button class="btn btn-primary text-truncate" type="submit">Import Backlog</button>
+                    </form>
+                    {% if import_success %}
+                        <p>{{ import_success }}</p>
+                    {% endif %}
+                </div>
+
+                <!-- Export backlog button -->
+                <div class="rolly">                
+                    <form action = {% url "serialize:export" %} method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <button class="btn btn-primary text-truncate" type="submit">Export Backlog</button>
+                    </form>
+                </div>
+
+                <!-- Reset database button -->
+                <div class="rolly">                
+                    <form action = {% url "serialize:reset" %} method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <button class="btn btn-primary text-truncate" type="submit">Reset Database</button>
+                    </form>
+                    {% if reset_success %}
+                        <p>{{ reset_success }}</p>
+                    {% endif %}
+                </div>
+            </div>
+    </div>
+{% endblock %}

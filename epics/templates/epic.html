@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!--Epic title and status-->
+    <div class="list-group">
+        <div class="list-group-item">
+            <div class="d-flex w-100 justify-content-between">
+                <h3 class="text-capitalize">{{ epic.title }}</h3>
+                {% if 'completed' in epic.state %}
+                    <span class="badge badge-pill badge-success ml-auto align-self-start">{{ epic.state }}</span>
+                {% elif 'pending' in epic.state %}
+                    <span class="badge badge-pill badge-warning ml-auto align-self-start">{{ epic.state }}</span>
+                {% elif 'in_progress' in epic.state %}
+                    <span class="badge badge-pill badge-danger ml-auto align-self-start">{{ epic.state }}</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+<!--List of bugs-->
+    <h4>Bugs:</h4>
+    <div class="list-group">
+    {% for bug in bugs %}
+        <div class="list-group-item">
+            <div class="d-flex justify-content-between">
+                <p class="mb-0">{{ bug.title }}</p>
+                <a class="btn btn-danger text-truncate" href="{% url 'epics:delete_bug' epic_id=epic.pk bug_id=bug.pk %}">Delete</a>
+            </div>
+        </div>
+    {% empty %}
+        <p>No bugs here</p>
+    {% endfor %}
+    <a class="btn btn-primary text-truncate" href="{% url 'epics:add_bug' epic_id=epic.pk %}">Add Bug</a>
+    </div>
+
+    <hr />
+
+<!--List of tasks-->
+    <h4>Tasks:</h4>
+    <div class="list-group">
+    {% for task in tasks %}
+        <div class="list-group-item">
+            <div class="d-flex justify-content-between">
+                <p class="mb-0">{{ task.title }}</p>
+                <a class="btn btn-danger text-truncate" href="{% url 'epics:delete_task' epic_id=epic.pk task_id=task.pk %}">Delete</a>
+            </div>
+        </div>
+    {% empty %}
+        <p>No tasks here</p>
+    {% endfor %}
+    <a class="btn btn-primary text-truncate" href="{% url 'epics:add_task' epic_id=epic.pk %}">Add Task</a>
+    </div>
+
+    <hr />
+
+<!--List of linked epics-->
+    <h4>Linked epics:</h4>
+    <div class="list-group">
+    {% for linked_epic in linked_epics %}
+        <a href="{% url 'epics:epic' linked_epic.pk %}" class="list-group-item list-group-item-action flex-column align-items-start" id="{{ linked_epic.pk }}">
+            <p class="mb-0">{{ linked_epic.title }}</p>
+        </a>
+    {% empty %}
+        <p>No linked epics</p>
+    {% endfor %}
+    </div>
+
+    <hr />
+
+<!--List of all bugs attached to children linked epics-->
+    <h4>Linked bugs:</h4>
+    <div class="list-group">
+    {% for linked_bug in linked_bugs %}
+        <div class="list-group-item">
+            <div class="d-flex justify-content-between">
+                <p class="mb-0">{{ linked_bug.title }}</p>
+            </div>
+        </div>
+    {% empty %}
+        <p>No bugs here</p>
+    {% endfor %}
+    </div>
+
+{% endblock %}

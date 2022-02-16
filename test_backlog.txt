@@ -1,0 +1,32 @@
+{
+	"EpicA":
+		{
+			"Tasks": ["TaskA1", "TaskA2"],
+			"Bugs": [],
+			"Epics": ["EpicB"]
+		},
+	"EpicB":
+		{
+			"Tasks": ["TaskB1", "TaskB2"],
+			"Bugs": ["BugB1"],
+			"Epics": []
+		},
+	"EpicC":
+		{
+			"Tasks": [],
+			"Bugs": [],
+			"Epics": []
+		},
+	"EpicD":
+		{
+			"Tasks": [],
+			"Bugs": [],
+			"Epics": ["EpicC"]
+		},
+	"EpicE":
+		{
+			"Tasks": [],
+			"Bugs": ["BugE1"],
+			"Epics": []
+		}
+	}
