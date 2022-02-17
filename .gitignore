@@ -9,10 +9,11 @@
 *.user
 *.userosscache
 *.sln.docstates
-.vscode/
-/FreeJira.pyproj.user
-/FreeJira.sln
-obj/
+.vscode
+FreeJira.pyproj
+FreeJira.pyproj.user
+FreeJira.sln
+obj
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
