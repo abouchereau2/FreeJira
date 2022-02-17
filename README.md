@@ -106,6 +106,7 @@
 ---
 
 ## To Do
+ - Clean up code
  - Improve User Interface
  - Add more tests, especially on import/export features
  - Do not save data if the import fails
