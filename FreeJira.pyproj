@@ -78,6 +78,7 @@
     <Compile Include="serialize\__init__.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitignore" />
     <Content Include="epics\templates\add_bug.html" />
     <Content Include="epics\templates\add_task.html" />
     <Content Include="epics\templates\epic.html" />
