@@ -72,20 +72,32 @@
 #### Automatic written tests
  - I must admit that I found this part the biggest challenge of this project, mainly because I did it at the end of it. For the future, it would definitely be better to write tests as I write the code.
  - I used Django built in TestCase and test the views, forms and models associated with Epics app and Search app. The tests generally follow these patterns:
-	- Create a new object instance, save it, and check if the models works well
+	- Create a new object instance, save it, and check if the model works well
 	- Test the routes response status codes
 	- Test whether an object list is in the global context and its values
 	- Test if a form is delivering the correct data
 	- Test if a model instance saves correctly
 	- Test routes that receive get or post requests by simulating with self.client.post and check if the object has been created / updated / deleted
 
+#### Browser testing
+ - I used Google Chrome to test app frontend, such as responsiveness, the grid and fonts.
+ - For import and export features, I mainly test them on browser. I wish I had time to write some stronger tests for this part.
+
 ---
 
 ## Deployment
- - 
-docker build -t FreeJira .
-docker run -p 8000:8000 -i -t FreeJira
 
+#### Run project
+ - Full project is available on Git.
+ - Install requirements.txt dependancies.
+ - Run app by executing command: `python manage.py runserver`
+ - The app is hosted on 127.0.0.1:8000 by default.
+
+#### Docker
+ - Dockerfile is provided
+ - Run commands:
+	- `docker build -t FreeJira .`
+	- `docker run -p 8000:8000 -i -t FreeJira`
 
 ## To Do
  - 
