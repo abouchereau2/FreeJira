@@ -71,7 +71,7 @@ class Epic(models.Model):
         r = []
 
         for epic in self.get_children_epics_recursive(False):
-            bugs = Bug.objects.filter(epic=epic.pk)
+            bugs = epic.get_bugs()
             for bug in bugs:
                 r.append(bug.title)
 
@@ -83,13 +83,13 @@ class Epic(models.Model):
     '''
     def is_completed(self) -> bool:
         #Epic has no Tasks*
-        if Task.objects.filter(epic=self).count() != 0: 
+        if self.get_tasks().count() != 0: 
             return False
         #No Bugs
-        if Bug.objects.filter(epic=self).count() != 0: 
+        if self.get_bugs().count() != 0: 
             return False
         #All linked Epics are "completed"
-        for epic in Epic.objects.filter(linked_epic=self):
+        for epic in self.get_children_epics():
             if 'completed' not in epic.state:
                 return False
         return True
@@ -99,17 +99,17 @@ class Epic(models.Model):
     '''
     def is_work_in_progress(self) -> bool:
         #Epic has at least one Task or one linked Epic at "work in progress"
-        return Task.objects.filter(epic=self).count() > 0 or Epic.objects.filter(linked_epic=self, state='in_progress').count() > 0
+        return self.get_tasks().count() > 0 or Epic.objects.filter(linked_epic=self, state='in_progress').count() > 0
 
     '''
     An epic is 'pending' if it has no tasks but still bugs, or if any of its linked epics is 'pending'
     '''
     def is_pending(self):
         #Epic has no Tasks
-        if Task.objects.filter(epic=self).count() != 0: 
+        if self.get_tasks().count() != 0: 
             return False
 
-        for epic in Epic.objects.filter(linked_epic=self):
+        for epic in self.get_children_epics():
             #If one linked epic is 'pending', current epic is 'pending'
             if 'pending' in epic.state:
                 return True
@@ -118,7 +118,7 @@ class Epic(models.Model):
                 return False
 
         #Has at least one bug pending
-        if Bug.objects.filter(epic=self).count() == 0: 
+        if self.get_bugs().count() == 0: 
             return False
 
         return True
