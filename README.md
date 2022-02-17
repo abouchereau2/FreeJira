@@ -103,6 +103,8 @@
 #### Testing
  - App is shipped with a full test database. This test dataset is available in `/serialize/test_backlog_import.txt`
 
+---
+
 ## To Do
  - Improve User Interface
  - Add more tests, especially on import/export features
