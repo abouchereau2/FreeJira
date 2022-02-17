@@ -147,7 +147,7 @@ class Epic(models.Model):
 class Task(models.Model):
 
     title = models.CharField(max_length=64, default=' ', blank=False, unique=True)
-    epic = models.ForeignKey('epics.Epic', on_delete=models.CASCADE, related_name='task')
+    epic = models.ForeignKey('epics.Epic', null=True, on_delete=models.CASCADE, related_name='task')
 
     def __str__(self):
         return self.title
@@ -156,7 +156,7 @@ class Task(models.Model):
 class Bug(models.Model):
 
     title = models.CharField(max_length=64, default=' ', blank=False, unique=True)
-    epic = models.ForeignKey('epics.Epic', on_delete=models.CASCADE, related_name='bug')
+    epic = models.ForeignKey('epics.Epic', null=True, on_delete=models.CASCADE, related_name='bug')
 
     def __str__(self):
         return self.title

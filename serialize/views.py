@@ -13,16 +13,18 @@ from epics.models import *
 Parse a dictionary and merge data with database
 '''
 def import_backlog(dict):
-    try:
+    #try:
         for epic_name, data in dict.items():
             cur_epic, created = Epic.objects.get_or_create(title=epic_name)
 
             for task in data["Tasks"]:
-                t, created = Task.objects.update_or_create(title=task, epic=cur_epic)
+                t, created = Task.objects.get_or_create(title=task)
+                t.epic = cur_epic
                 t.save()
 
             for bug in data["Bugs"]:
-                b, created = Bug.objects.update_or_create(title=bug, epic=cur_epic)
+                b, created = Bug.objects.get_or_create(title=bug)
+                b.epic = cur_epic
                 b.save()
 
             for epic in data["Epics"]:
@@ -31,10 +33,10 @@ def import_backlog(dict):
                 e.refresh_status()
 
             cur_epic.refresh_status()
-    except:
-        return False
+    #except:
+        #return False
 
-    return True
+        return True
 
 
 '''
@@ -64,8 +66,15 @@ Upload a txt file containing a dictionary and import it in database
 def simple_upload(request):
     if request.method == 'POST' and 'backlog' in request.FILES:
         try:
+            #fs = FileSystemStorage()
+            #file = fs.open(request.FILES['backlog'].name, 'r')
+            #file = open(request.FILES['backlog'].name, 'r')
+            #dictionary = ast.literal_eval(file.read())
+            #file.close()
+            myfile = request.FILES['backlog']
             fs = FileSystemStorage()
-            file = fs.open(request.FILES['backlog'].name, 'r')
+            filename = fs.save(myfile.name, myfile)
+            file = fs.open(filename, 'r')
             dictionary = ast.literal_eval(file.read())
             file.close()
         except:
@@ -87,18 +96,18 @@ def export(request):
     filename = 'backlog.txt'
     filepath = BASE_DIR + '/' + filename
 
-    if os.path.exists(filepath):
-        with open(filepath, 'w+') as fh:
+    #if os.path.exists(filepath):
+    with open(filepath, 'w+') as fh:
             fh.write(str(export_backlog()))
             fh.close()
 
-        with open(filepath, 'r') as fh:
+    with open(filepath, 'r') as fh:
             mime_type, _ = mimetypes.guess_type(filepath)
             response = HttpResponse(fh.read(), content_type=mime_type)
             response['Content-Disposition'] = "attachment; filename=%s" % filename
             return response
 
-    raise Http404
+    return render(request, 'index.html')
 
 
 '''

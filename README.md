@@ -91,16 +91,23 @@
  - Full project is available on Git.
  - Install requirements.txt dependancies.
  - Run app by executing command: `python manage.py runserver`
- - The app is hosted on 127.0.0.1:8000 by default.
+ - The web app is hosted on 127.0.0.1:8000 by default.
 
 #### Docker
  - Dockerfile is provided
- - Run commands:
-	- `docker build -t FreeJira .`
-	- `docker run -p 8000:8000 -i -t FreeJira`
+ - Run commands from FreeJira folder:
+	- `docker build -t freejira .`
+	- `docker run -p 8000:8000 -i -t freejira`
+ - The web app is hosted on 127.0.0.1:8000 by default.
+
+#### Testing
+ - App is shipped with a full test database. This test dataset is available in `/serialize/test_backlog_import.txt`
 
 ## To Do
- - 
+ - Improve User Interface
+ - Add more tests, especially on import/export features
+ - Do not save data if the import fails
+ - Improve errors management by raising exceptions
 
 
 
