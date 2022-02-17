@@ -3,9 +3,9 @@
 ---
 
 ## Overview
- - Free Jira is backlog management site where users can track and visualize Epics.
+ - Free Jira is backlog management app where users can track and visualize Epics.
  - An Epic can contains Bugs, Tasks and other Epics. It can be in differet states: "confirmed", "work in progress" or "pending validation".
- - Users can import a backlog (as a dictionnary) to populate database. The app is deployed with a test database.
+ - Users can import a backlog (formatted as a dictionary) to populate database. The app is deployed with a test database.
  - The app is built with Django and bootstrap. I choose Django because it is one of the top web development framework and has a big and supportive community. It is also fast, simple and reliable.
  - The UX design is very simple since I attached more importance on backend development than frontend for this exercise.
  
@@ -37,11 +37,11 @@
  - Top Navigation Bar:
 	- "Epics": link to epics list
 	- "Search": search engine over Bugs table
- - Import backlog: upload a text file and parse a backlog formatted as a dictionary. If a backlog is already stored in database, the app wil merge them accoring to these rules:
+ - Import backlog: upload a text file and parse a backlog formatted as a dictionary. If a backlog is already stored in database, the app wil merge them according to these rules:
 	- If an Epic already exists in database (based on title), then it updates it. If not, it creates it.
 	- If a Bug already exists (based on title), it updates its parent Epic. If not, it creates it.
 	- If a Task already exists (based on title), it updates its parent Epic. If not, it creates it.
- - Export backlog: export the current backlog stored in database into a text file, format as a dictionary.
+ - Export backlog: export the current backlog stored in database into a text file, formatted as a dictionary.
  - Reset database: flush database. This function is mainly for testing purpose.
 
 #### Epics page
